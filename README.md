@@ -1,10 +1,10 @@
 # Base de données client-serveur en C++ et en Javaswing
 
-## Sujet :
+# Première partie : C++
 Le but de ces travaux pratiques est de créer l'ébauche du logiciel d'une set-top box multimédia permettant de jouer de la musique, des vidéos, des films, d'afficher des photos, etc. Ce logiciel sera realisé par étapes, en se limitant à la déclaration et l'implémentation de quelques classes et fonctionnalités typiques que l'on complétera progressivement. Noter qu'il est utile de lire le texte de chaque étape en entier avant de la traiter (en particulier les notes ou remarques qui donnent des indications).
 Comme il faudra rendre le TP et un README décrivant brièvement votre travail pensez à noter au fur et à mesure ce que vous avez fait et les réponses aux questions. Lorsqu'il y a des des modifications importantes du code source (en particulier dans la fonction main()) il est utile de conserver la version antérieure en commentaires ou, mieux, entre #ifdef VERSION_TRUC et #endif, comme expliqué plus bas.
 
-#1e Etape: Démarrage
+##1e Etape: Démarrage
 1. Ouvrir une fenêtre Terminal
 2. Créer un répertoire pour les fichiers de ce TP, par exemple : mkdir inf224
 3. Aller dans ce répertoire : cd inf224
@@ -18,7 +18,7 @@ Pour créer un projet compatible avec un Makefile avec QtCreator :
 Ceci crée un fichier qui a le nom du projet avec l'extension .creator. Ce fichier permettra de réouvrir votre projet lors d'une session ultérieure, en sélectionnant Fichier puis Ouvrir un fichier ou projet... dans QtCreator (ou en double cliquant sur ce fichier si l'environnement est bien configuré).
 
 
-#2e Etape: Classe de base
+##2e Etape: Classe de base
 Ecrire la déclaration (fichier header .h) et l'implémentation (fichier source .cpp) de la classe de base de l'arbre d'héritage des classes d'objets multimédia. Cette classe de base contiendra ce qui est commun à tous les objets multimédia. On s'en servira ensuite pour définir des sous-classes spécifiques à chaque type de donnée (par exemple une classe photo, vidéo, film, morceau de musique, etc.)
 Pour créer ces deux fichiers, dans QtCreator cliquer : Fichier puis Nouveau fichier ou projet... puis Classe C++ (le nom du .h et du .cpp sera forgé à partir de celui de la classe). Noter aussi que, par convention, les noms de vos classes devront commencer par une majuscule et ceux des variables et des fonctions par une minuscule.
 Pour simplifier, cette classe de base n'aura que deux variables d'instance:
@@ -41,7 +41,7 @@ Pour compiler le fichier et corriger les erreurs
 * Si vous obtenez l'erreur "make: *** No rule to make target `main.o', needed by `myprog'. Stop." c'est normal, c'est juste que vous n'avez pas encore créé le fichier main.cpp.
 
 
-#3e Etape: Programme de test
+##3e Etape: Programme de test
 Un programme exécutable nécessite la présence d'une fonction main(). Cette fonction ne doit pas se trouver dans l'implémentation d'une classe car ceci interdirait sa réutilisation ultérieure. On va donc créer un autre fichier, appelé par exemple main.cpp qui va implémenter la fonction main().
 Pour tester, créer quelques instances de la classe de base (en utilisant new) dans main() et vérifier que la fonction d'affichage affiche correctement la valeur des attributs dans le Terminal. Noter que votre code doit (et devra toujours par la suite) respecter le principe d'encapsulation : on ne doit donc jamais accéder aux attributs des objets autrement que par des méthodes.
 Pour compiler et générer l'exécutable : pensez à rajouter main.cpp dans SOURCES dans le Makefile puis faites comme précédemment.
@@ -56,7 +56,7 @@ Pensez à :
 * Commenter votre code source et en particulier les headers afin de pouvoir générer automatiquement la documentation grâce à Doxygen. On pourra pour l'instant se limiter aux fonctionnalités de base de Doxygen vues en cours, ne commenter que l'essentiel, et compléter ultérieurement.
 
 
-#4e Etape: Photos et videos
+##4e Etape: Photos et videos
 On va maintenant créer deux sous-classes de la classe de base, l'une correspondant à une photo, l'autre à une vidéo. Ces classes pourraient bien sûr comprendre de nombreux attributs mais on va faire simple pour ne pas perdre de temps :
 * une vidéo a une durée, c'est-à-dire une valeur numérique intégrale,
 * une photo peut être caractérisée par un latitude et une longitude, c'est-à-dire deux valeurs numériques réelles.
@@ -71,13 +71,13 @@ Comme pour la fonction d'affichage, la fonction pour jouer l'objet ne modifie pa
 Modifier le Makefile si nécessaire (on rappelle qu'il ne faut pas mettre les .h dans SOURCES). Compiler, corriger les éventuelles erreurs et tester le programme. Si vous avez fait correctement ce qui précède, il ne sera plus possible d'instancer des objets de la classe de base. Pourquoi ?
 
 
-#5e Etape: Traitement générique (en utilisant le polymorphisme)
+##5e Etape: Traitement générique (en utilisant le polymorphisme)
 On veut maintenant pouvoir traiter génériquement une liste comprenant à la fois des photos et des vidéos. Pour ce faire créer dans main.cpp un tableau dont les éléments sont tantôt une photo tantôt une vidéo. Ecrire ensuite une boucle permettant d'afficher les attributs de tous les élements du tableau (ou de les "jouer"). Cette boucle n'a pas besoin de connaître le type des élements : elle doit pouvoir traiter de la même manière tous les objets dérivant de la classe de base.
 Quelle est la propriété caractéristique de l'orienté objet qui permet de faire cela ? Qu'est-il spécifiquement nécessaire de faire dans le cas du C++ ? Quel est le type des éléments du tableau : est-ce que ce tableau contient les objets ou des pointeurs vers ces objets ? Pourquoi ? Comparer à Java.
 Compiler, exécuter, et vérifier que le résultat est correct.
 
 
-#6e étape. Films et tableaux
+##6e étape. Films et tableaux
 On veut maintenant définir une sous-classe Film dérivant de la classe Video. Une particularité des films est qu'ils sont composés de plusieurs chapitres ce qui permet d'accéder rapidement à une partie du film. Pour ce faire on va utiliser un tableau d'entiers contenant la durée de chaque chapitre. Il serait en fait préférable d'utiliser un vecteur de la librairie C++ mais on va ne pas le faire dans cette question pour illustrer certaines difficultés que peuvent poser les pointeurs et tableaux en C et C++.
 Ecrire la classe Film, qui doit avoir :
 * le ou les constructeurs adéquats.
@@ -94,14 +94,14 @@ Plus généralement, ces problèmes se posent chaque fois qu'une des variable d'
 Implementez votre classe et vérifiez que le resultat est correct en modifiant et/ou détruisant le tableau qui lui est passé en argument puis en appelant la fonction d'affichage de l'objet (NB: il faut répéter l'opération pour vérifier que c'est correct car les erreurs de mémoire sont en partie aléatoires).
 
 
-#7e étape. Destruction et copie des objets
+##7e étape. Destruction et copie des objets
 Contrairement à Java ou C#, C/C++ ne gère pas la mémoire dynamique automatiquement (*) : comme il n'y a pas de ramasse miettes, tout ce qui a été créé avec new doit être détruit avec delete sinon on aura des fuites mémoires. Parmi les classes précédemment écrites quelles sont celles qu'il faut modifier afin qu'il n'y ait pas de fuite mémoire quand on détruit leurs instances ?
 De même, la copie d'objets peut poser problème dans certains cas. Pourquoi et que faudrait-il faire ?
 Modifiez le code de manière à éviter les fuites mémoire. Si vous n'avez pas pris de retard, modifiez également le code pour gérer la copie correctement (sinon dites juste ce qu'il faudrait faire). Faites quelques tests dans main() pour vérifier que tout se passe comme souhaité (créer, copier et détruire plusieurs objets).
 (*) Note : on rappelle que contrairement à la mémoire dynamique (celle gérée par new et delete), la mémoire globale/static et la pile sont gérées automatiquement : les variables globales ou static sont détruites quand on sort du programme, les paramètres et variables locales des fonctions (pile) quand on sort de la fonction.
 
 
-#8e étape. Créer des groupes
+##8e étape. Créer des groupes
 On va maintenant créer une nouvelle classe servant à contenir un groupe d'objets dérivant de la classe de base. Un groupe peut contenir un ensemble d'objets similaires (e.g. un groupe pour toutes les photos et un autre pour toutes les vidéos) ou pas (e.g. un groupe pour les photos et vidéos de vacances).
 Pour ce faire on va utiliser la classe template list< > de la librairie standard qui permet de créer une liste d'objets (dont il faut préciser la classe entre les < >). Notez qu'il s'agit d'utiliser une classe template existante, pas d'en créer une nouvelle.
 Deux stratégies sont possibles :
@@ -116,7 +116,7 @@ Le groupe ne doit pas détruire les objets quand il est détruit car un objet pe
 Pour tester, créez quelques groupes dans main() en les peuplant de photos, videos ou films et en faisant en sorte que des objets appartiennent à plusieurs groupes. Appelez la fonction d'affichage des groupes pour vérifier que tout est OK.
 
 
-#9e étape. Gestion automatique de la mémoire
+##9e étape. Gestion automatique de la mémoire
 Comme on l'a vu aux étapes 6 et 7, la gestion de la mémoire dynamique (celle allouée avec new en C++ et malloc() en C) est délicate. On risque en effet, soit de se retrouver avec des pointeurs pendants parce que l'objet qu'ils pointaient à été détruit ailleurs (cf. étape 6), soit avec des fuites mémoires parce l'on n'a pas détruit des objets qui ne sont plus pointés nulle part (cf. étape 7).
 Les pointeurs pendants sont une source majeure de plantages ! Les fuites mémoires posent surtout problème si les objets sont gros (e.g. une image 1000x1000) et/ou si le programme s'exécute longtemps (e.g. un serveur Web tournant en permanence). On peut alors rapidement épuiser toute la mémoire disponible (noter cependant que la mémoire allouée de manière standard est toujours récupérée à la terminaison du programme).
 Le ramasse miettes de Java et les les smart pointers avec comptage de références de C++ offrent une solution simple à ce problème : les objets sont alors automatiquement détruits quand plus aucun (smart pointer) ne pointe sur eux. Il ne faut donc jamais detruire avec delete un objet pointé par un smart pointer !
@@ -128,7 +128,7 @@ Remarques
 Enlevez des objets des groupes et vérifiez qu'ils sont effectivement détruits quand ils n'appartiennent plus à aucun groupe (et s'ils ne sont plus pointés par aucun autre smart pointer : noter que si p est un smart pointer p.reset() fait en sorte qu'il ne pointe plus sur rien)
 
 
-#10e étape. Gestion cohérente des données
+##10e étape. Gestion cohérente des données
 On va maintenant créer une classe qui servira à fabriquer et manipuler tous les objets de manière cohérente. Elle contiendra deux variables d'instance:
 * une table de tous les objets multimédia
 * une table de tous les groupes
@@ -147,7 +147,7 @@ Question additionnelle (vous pouvez passer cette question si vous êtes en retar
 * De même que précédemment, il est préférable d'interdire à l'utilisateur de détruire un objet directetement en utilisant delete (c'est même pire car ca planterait le programme). Avec des raw pointers le principe serait le même que pour new. Avec des smart pointers c'est un peu plus compliqué, mais moins indispensable car on ne peut pas faire delete directement sur un smart pointer (mais comme toujours en C/C++ il existe toujours un moyen de faire ce qu'on veut, et éventuellement des bêtises!) Si ca vous interesse et que vous avez un compilateur à jour (donc pas celui des salles de TP) vous pouvez regarder comment faire.
 
 
-#11e étape. Client / serveur
+##11e étape. Client / serveur
 Cette étape vise à transformer votre programme C++ en un serveur qui communiquera avec un client qui fera office de télécommande. Dans cette question le client permettra d'envoyer des commandes textuelles. Plus tard, dans le TP suivant, vous réalisez une interface graphique Java Swing qui interagira avec le serveur de la même manière. Dans la réalité le serveur tournerait sur la set-top box et le client sur un smartphone ou une tablette.
 Récuperez ces fichiers. Ils comprennent un client et un serveur ainsi que des fichiers utilitaires qui servent à faciliter la gestion des sockets. Pour les compiler il faut taper make -f Makefile-cliserv dans le Terminal. Lancez d'abord le serveur, puis (depuis un autre Terminal sur la même machine) le client et regardez le code correspondant.
 * Le client crée une Socket qu'il connecte au serveur via la méthode connect(). Celle-ci précise à quelle machine et à quel port il faut se connecter. Par defaut le port est 3331 (le même que pour le serveur) et la machine est "localhost" (ce qui signifie que le client tourne sur la même machine que le serveur). La méthode connect() renvoie 0 si la connexion réussit et une valeur négative en cas d'erreur. S'il n'y a pas de firewall bloquant les connexions le client peut tourner sur une autre machine à condition de mettre le nom internet de la machine du serveur à la place de "localhost". Si la connexion est réalisée, le client lance une boucle infinie (pour quitter, taper ^C ou ^D ou quit) qui demande une ligne de commande à l'utilisateur puis l'envoie au serveur via la méthode writeLine(). Le client bloque jusqu'à la réception de la réponse retournée par le serveur qui est lue par la méthode readLine(). 
@@ -179,7 +179,7 @@ Questions additionnelles (vous pouvez passer ces questions si vous êtes en reta
 * Un véritable serveur aurait probablement de nombreuses commandes. Afin d'accélérer la recherche des commandes vous pouvez utiliser une map contenant des pointeurs de méthodes ou mieux, des lambdas (la clé est le nom de la commande, l'attribut est la méthode ou la lambda correspondante).
 
 
-#12e étape. Sérialisation / désérialisation
+##12e étape. Sérialisation / désérialisation
 C++ ne propose pas en standard de moyen de sérialiser les objets de manière portable. On peut utiliser des extensions pour le faire (par exemple Cereal, Boost ou le toolkit Qt) ou juste l'implémenter "à la main" dans les cas simples. C'est ce que l'on va faire maintenant pour les tables d'objets multimédia. Notez qu'il est avantageux d'implémenter en même temps les fonctions d'écriture et de lecture, ces deux fonctionnalités dependant l'une de l'autre.
 Ecrivez toutes les méthodes nécessaires en vous inspirant du cours puis testez les dans main() en sauvegardant puis en relisant la table d'objets multimédia (on laisse de côté les groupes). On rappelle:
 * qu'il faut utiliser ofstream pour écrire sur un fichier, ifstream pour lire depuis un fichier et qu'il est nécessaire de vérifier si les fichiers ont pu être ouverts et de les fermer après usage à l'aide de leur méthode close().
@@ -195,7 +195,7 @@ Questions additionnelles
 Remarques
 La librairie standard de C++ fournit un moyen de récupérer les noms des classes via la fonction typeid() mais leur format dépend de l'implémentation. Avec g++ ce nom est encodé (par exemple N7Contact8Address2E pour Contact::Address) ce qui n'est pas très "user-friendly", ni très portable. La solution la plus simple est donc de faire comme conseillé plus haut.
 Cependant, il existe des extensions dépendantes des implémentations qui permettent d'obtenir les noms décodés. Par exemple avec g++ on peut faire:
-#include <cxxabi.h>
+\#include <cxxabi.h>
 
 bool demangle(const char* mangledName, std::string& realName) {
 int status = 0;
@@ -214,7 +214,7 @@ demangle(typeid().name(), realname);
 cout << realname << endl;
 
 
-#13e étape. Traitement des erreurs
+##13e étape. Traitement des erreurs
 La fiabilité des programmes repose sur la qualité du traitement des erreurs en cours d'exécution. Il faut en effet éviter de produire des résultats incohérents ou des plantages résultant de manipulations erronées. Jusqu'à présent nous avons négligé cet aspect dans les questions précédentes.
 Exemples:
 * si on crée plusieurs groupes ou objets ayant le même nom
@@ -230,5 +230,57 @@ Dans le premier cas (codes d'erreurs), il est souhaitable que la fonction réali
 La seconde solution (exceptions) est plus sûre dans la mesure où les erreurs doivent être obligatoirement traitées via une clause catch sous peine de provoquer la terminaison du programme (ou d'interdire la compilation en Java). Cependant, une utilisation trop intensive des exceptions peut compliquer le code et rendre son déroulement difficile à comprendre.
 A vous de jouer ! Gerez les principaux cas d'erreurs comme bon vous semble, en utilisant la première ou la seconde stragégie, ou une combinaison des deux suivant la sévérité des erreurs. Mais faites en sorte que votre code soit cohérent par rapport à vos choix et justifiez les dans le rapport et/ou la documentation générée par Doxygen.
 Remarque: pour créer de nouvelles classes d'exceptions en C++ il est préférable (mais pas obligatoire) de sous-classer une classe existante de la bibliothèque standard. L'exception runtime_error (qui dérive de la classe exception) est particulièrement appropriée et son constructeur prend en argument un message d'erreur de type string. Ce message pourra être récupéré au moment de la capture de l'exception grâce à la méthode what() (cf. l'exemple au bas de cette page).
-Suite
-La suite de ce TP (télécommande en Java Swing)
+
+
+#Deuxième partie : Javaswing
+
+Le but de cet exercice est de créer une interface graphique Java/Swing qui permettra à terme d'interagir avec le logiciel déjà créé lors du TP C++/Objet. Comme précédemment, ce programme Java sera réalisé par étapes en ajoutant les fonctionnalités nécessaires petit à petit. Pensez à lire les "notes" ou "remarques" qui vous donneront des indications utiles avant de faire chaque étape. Vous pouvez utilisez l'IDE de votre choix pour programmer.
+
+
+##1ere Etape: Fenêtre principale et quelques interacteurs
+Créez une fenêtre principale (dérivant de JFrame) contenant une zone de texte multi-lignes (JTextArea) et trois boutons (JButton). Faites en sorte que, lorsqu'on les active, les deux premiers boutons ajoutent une ligne de texte (différente pour chaque bouton) à la zone de texte et que le dernier bouton termine l'application (cf. méthode exit(int)() de la classe System).
+
+Notes :
+
+Un JFrame est par défaut associé à un LayoutManager de type BorderLayout. Ceci permet un positionnement de ses enfants de type "points cardinaux" en appelant la méthode add() avec les arguments adéquats (voir la doc. de BorderLayout). Mettez par exemple la zone de texte dans la zone centrale et les boutons dans un conteneur JPanel lui-même situé dans la zone sud du JFrame.
+Pour spécifier le comportement des boutons quand on les active vous pourrez vous inspirer de la "2e ou 3e stratégie" vues en cours (si vous avez le temps, faites les deux pour comparer).
+Pensez à donner une taille suffisante au JTextArea en spécifiant un nombre de lignes et de colonnes adéquats à sa création.
+N'oubliez pas d'appeler les méthodes suivantes de JFrame:
+setDefaultCloseOperation(int) pour que la fermeture de l'interface entraîne la terminaison de l'application
+pack() pour calculer la disposition spatiale des composants graphiques
+setVisible(boolean) pour faire apparaître l'interface
+Votre classe devra comprendre une variable serialVersionUID définie comme suit:
+private static final long serialVersionUID = 1L;
+Cette variable est réclamée par le compilateur pour préciser la version de la classe (1 dans ce cas). De plus cette classe doit etre publique et le fichier qui la contient doit avoir le même nom.
+Documentez votre code au fur et à mesure de manière à pouvoir générer automatiquement la documentation grâce à JavaDoc ou Doxygen.
+Lancez votre programme, cliquez plusieurs fois sur les deux premiers bouton, retaillez la fenêtre. Que constate-t'on ?
+
+En fait, il est généralement nécessaire d'ajouter des ascenseurs à un JTextArea pour le rendre réellement utilisable. Pour ce faire, mettez ce composant dans un JScrollPane (en utilisant le constructeur adéquat de JScrollPane).
+
+
+##2eme Etape: Menus, barre d'outils et actions
+Nous allons maintenant rajouter une barre de menus (JMenuBar) comprenant un menu déroulant (JMenu) ainsi qu'une barre d'outils (JToolBar). Il faudra, comme de juste, placer la barre d'outils dans la zone nord de la fenêtre principale. La barre de menus sera ajoutée à la fenêtre via sa méthode setJMenuBar().
+
+Le menu déroulant et la barre d'outils contiendront tous les deux les mêmes boutons que précédemment:
+
+Une première solution consiste à procéder de la même manière qu'à l'étape précédente (à ceci près que les menus doivent contenir des JMenuItems et non des JButtons). Mais cette technique n'est pas particulièrement optimale car elle conduit à dupliquer les boutons qui sont dans les menus déroulants et ceux qui sont dans la barre d'outils alors qu'ils font la même chose.
+Une autre possibilité (encouragée) est d'utiliser les Actions, ou, plus exactement, de créer des sous-classes de AbstractAction. Contrairement aux autres composants de Java Swing, les Actions peuvent être inclues simultanément dans plusieurs composants graphiques (dans notre cas, à la fois dans un JMenu et un JToolbar). Cette classe permet de spécifier toutes les caractéristiques d'un bouton (son nom et, optionnellement, une image, un mnémonique, un raccourci clavier, l'état du bouton s'il en a un) ainsi que son comportement en redéfinissant sa méthode actionPerformed().
+Notes
+
+On rappelle qu'il ne doit y avoir qu'une seule classe publique dans un fichier Java. Cependant vous pouvez définir d'autres classes non publiques si cela s'avère nécessaire.
+Pour les utilisateurs de MacOSX : pour que les barres de menus apparaissent comme d'habitude sur cette plate-forme il faut faire:
+System.setProperty("apple.laf.useScreenMenuBar", "true");
+
+
+##3eme Etape: Interaction client/serveur
+Cette étape vise à faire communiquer votre programme Java avec le programme C++, faisant office de serveur, que vous avez réalisé aux TPs précédents. Tout d'abord, téléchargez le programme Client.java. Ce programme fait la même chose que le programme client.cpp vu à la question 11 du TP C++. Compilez le et vérifiez qu'il interagit correctement avec le serveur C++.
+
+Adaptez le code que vous avez écrit à l'étape précédente pour créer une interface graphique qui interagisse avec le serveur C++. Les fonctionnalités souhaitées sont les mêmes qu'à la question 13 du TP C++ : pouvoir rechercher un objet multimédia (l'affichage devant se faire sur l'interface graphique Java Swing qui joue le rôle de télécommande), et pouvoir "jouer" un objet multimédia (sur le serveur C++, qui fait office de "set-top box").
+
+Notes
+Vous pouvez bien sûr rajouter toute commande qui vous semble utile pour une télécommande !
+Si vous avez le temps, vous pouvez améliorer l'interface pour la rendre plus facile à utiliser en exploitant les nombreuses possibilités offertes par Java Swing. Outre des JTexField vous pourrez par exemple utiliser des onglets (JTabbedPane) ou des boîtes de dialogue (JDialog) ou encore des boutons exclusifs (cf. JRadioButton et ButtonGroup).
+4eme Etape (obligatoire): Créer un Makefile
+Vous avez probablement utilisé un IDE qui a créé des fichiers un peu partout. C'est bien pour développer mais pas forcément pour déployer sur d'autres machines et encore moins ... pour corriger !
+
+On vous demande dans cette question, d'adapter ce Makefile qui va permettre de compiler puis d'executer automatiquement le programme Java (la télécommande de l'étape 3) juste en tapant make run dans le Terminal.

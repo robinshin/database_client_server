@@ -1,0 +1,4 @@
+Film Film1 cheminFilm1 5
+Film Film3 cheminFilm3 3
+Photo Photo1 cheminPhoto1 50 50
+Video video1 cheminVideo1 2000
